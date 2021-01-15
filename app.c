@@ -10,7 +10,7 @@ char setName[dataLength], setPhone[dataLength], setSalary[dataLength], option[10
 char dataEmployee[dataLength], dataName[dataLength], dataPhone[dataLength], dataSalary[dataLength];
 int head = 0, tail = 1, k, cName = 0, cPhone = 1, cSalary = 2, a = 0, b = 0, c = 0;
 
-char *filename = "data.txt";
+char filename[10] = "data.txt";
 
 int main()
 {
