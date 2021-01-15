@@ -69,11 +69,11 @@ int main()
         if (strcmp(option, "1") == 0)
         {
             printf("Enter Name: ");
-            scanf("%s", setName);
+            scanf("%s", &setName);
             printf("Enter Phone Number: ");
-            scanf("%s", setPhone);
+            scanf("%s", &setPhone);
             printf("Enter Salary(RM): ");
-            scanf("%s", setSalary);
+            scanf("%s", &setSalary);
             for (int i = head; i < tail; i++)
             {
                 fp = fopen(filename, "w+");
