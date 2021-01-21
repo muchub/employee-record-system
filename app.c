@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <windows.h>
 
 #define dataLength 30
 #define dataColumn 3
@@ -14,11 +15,14 @@ char filename[10] = "data.txt";
 
 void dataEmp();
 void displayData();
+void empDetail();
 
 int main()
 {
     do
     {
+        system("cls");
+
         dataEmp();
 
         printf("[+]========================[+]\n");
@@ -30,36 +34,52 @@ int main()
         scanf("%s", &option);
         if (strcmp(option, "1") == 0)
         {
-            printf("Enter Name: ");
-            scanf("%s", &setName);
-            printf("Enter Phone Number: ");
-            scanf("%s", &setPhone);
-            printf("Enter Salary(RM): ");
-            scanf("%s", &setSalary);
-            for (int i = head; i < tail; i++)
+            //Insert Data
+            system("cls");
+            while (1)
             {
-                fp = fopen(filename, "w+");
-                strcpy(listName[head], setName);
-                strcpy(listPhone[head], setPhone);
-                strcpy(listSalary[head], setSalary);
-                for (int j = 0; j < tail; j++)
+                empDetail();
+
+                for (int i = head; i < tail; i++)
                 {
-                    fprintf(fp, "\n");
-                    fprintf(fp, listName[j]);
-                    fprintf(fp, " ");
-                    fprintf(fp, listPhone[j]);
-                    fprintf(fp, " ");
-                    fprintf(fp, listSalary[j]);
+                    fp = fopen(filename, "w+");
+                    strcpy(listName[head], setName);
+                    strcpy(listPhone[head], setPhone);
+                    strcpy(listSalary[head], setSalary);
+                    for (int j = 0; j < tail; j++)
+                    {
+                        fprintf(fp, "\n");
+                        fprintf(fp, listName[j]);
+                        fprintf(fp, " ");
+                        fprintf(fp, listPhone[j]);
+                        fprintf(fp, " ");
+                        fprintf(fp, listSalary[j]);
+                    }
+                    fclose(fp);
+                    printf("Your data has been inserted\nEnter Y for insert another data: ");
+                    break;
                 }
-                fclose(fp);
-                break;
+                scanf("%s", &back);
+                if (strcmp(back, "Y") != 0)
+                {
+                    break;
+                }
             }
         }
         else if (strcmp(option, "2") == 0)
         {
+            //Edit data
+            int dataID = 0;
             while (1)
             {
-                printf("Under const");
+                system("cls");
+                displayData();
+                printf("Enter data ID: ");
+                scanf("%d", &dataID);
+                empDetail();
+                strcpy(listName[dataID - 1], setName);
+                strcpy(listPhone[dataID - 1], setPhone);
+                strcpy(listSalary[dataID - 1], setSalary);
                 printf("\n\nPress any key to back: ");
                 scanf("%s", back);
                 if (strcmp(back, "") == 0 || strcmp(back, "") != 0)
@@ -70,9 +90,11 @@ int main()
         }
         else if (strcmp(option, "3") == 0)
         {
+            //Delete data
             int dataDel;
             while (1)
             {
+                system("cls");
                 //printf("Under const");
                 while (1)
                 {
@@ -96,8 +118,8 @@ int main()
         {
             while (1)
             {
+                system("cls");
                 displayData();
-
                 printf("\n\nPress any key to back: ");
                 scanf("%s", back);
                 if (strcmp(back, "") == 0 || strcmp(back, "") != 0)
@@ -158,11 +180,21 @@ void dataEmp()
 
 void displayData()
 {
-    printf("Name\t\tPhone \t\t\tSalary\n");
+    printf("ID\tName\t\tPhone \t\t\tSalary\n");
     printf("==============================================\n");
 
     for (int i = 0; i < k / dataColumn; i++)
     {
-        printf("%s\t\t%s\t\t\tRM %s\n", listName[i], listPhone[i], listSalary[i]);
+        printf("%d\t%s\t\t%s\t\t\tRM %s\n", i+1, listName[i], listPhone[i], listSalary[i]);
     }
+}
+
+void empDetail()
+{
+    printf("Enter Name: ");
+    scanf("%s", &setName);
+    printf("Enter Phone Number: ");
+    scanf("%s", &setPhone);
+    printf("Enter Salary(RM): ");
+    scanf("%s", &setSalary);
 }
