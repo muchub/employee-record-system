@@ -12,63 +12,8 @@ int head = 0, tail = 1, k, cName = 0, cPhone = 1, cSalary = 2, a = 0, b = 0, c =
 
 char filename[10] = "data.txt";
 
-void dataEmp()
-{
-    //check if file not exist create file
-    if (!fopen(filename, "r+"))
-    {
-        fopen(filename, "w+");
-    }
-
-    k = 0;
-    //Read all data from file
-    fp = fopen(filename, "r+");
-    while (!feof(fp))
-    {
-        fscanf(fp, "%s", dataEmployee);
-        strcpy(listData[k], dataEmployee);
-        k++;
-    }
-    fclose(fp);
-
-    //sort data by category/column
-    for (int i = 0; i < k; i++)
-    {
-        if (i == cName)
-        {
-            strcpy(listName[a++], listData[cName]);
-            cName = cName + dataColumn;
-        }
-        else if (i == cPhone)
-        {
-            strcpy(listPhone[b++], listData[cPhone]);
-            cPhone = cPhone + dataColumn;
-        }
-        else if (i == cSalary)
-        {
-            strcpy(listSalary[c++], listData[cSalary]);
-            cSalary = cSalary + dataColumn;
-        }
-    }
-
-    //Check last record
-    for (int i = 0; i < k / dataColumn; i++)
-    {
-        head++;
-        tail++;
-    }
-}
-
-void displayData()
-{
-    printf("Name\t\tPhone \t\t\tSalary\n");
-    printf("==============================================\n");
-
-    for (int i = 0; i < k / dataColumn; i++)
-    {
-        printf("%s\t\t%s\t\t\tRM %s\n", listName[i], listPhone[i], listSalary[i]);
-    }
-}
+void dataEmp();
+void displayData();
 
 int main()
 {
@@ -152,7 +97,7 @@ int main()
             while (1)
             {
                 displayData();
-                
+
                 printf("\n\nPress any key to back: ");
                 scanf("%s", back);
                 if (strcmp(back, "") == 0 || strcmp(back, "") != 0)
@@ -162,4 +107,62 @@ int main()
             }
         }
     } while (strcmp(option, "E") != 0);
+}
+
+void dataEmp()
+{
+    //check if file not exist create file
+    if (!fopen(filename, "r+"))
+    {
+        fopen(filename, "w+");
+    }
+
+    k = 0;
+    //Read all data from file
+    fp = fopen(filename, "r+");
+    while (!feof(fp))
+    {
+        fscanf(fp, "%s", dataEmployee);
+        strcpy(listData[k], dataEmployee);
+        k++;
+    }
+    fclose(fp);
+
+    //sort data by category/column
+    for (int i = 0; i < k; i++)
+    {
+        if (i == cName)
+        {
+            strcpy(listName[a++], listData[cName]);
+            cName = cName + dataColumn;
+        }
+        else if (i == cPhone)
+        {
+            strcpy(listPhone[b++], listData[cPhone]);
+            cPhone = cPhone + dataColumn;
+        }
+        else if (i == cSalary)
+        {
+            strcpy(listSalary[c++], listData[cSalary]);
+            cSalary = cSalary + dataColumn;
+        }
+    }
+
+    //Check last record
+    for (int i = 0; i < k / dataColumn; i++)
+    {
+        head++;
+        tail++;
+    }
+}
+
+void displayData()
+{
+    printf("Name\t\tPhone \t\t\tSalary\n");
+    printf("==============================================\n");
+
+    for (int i = 0; i < k / dataColumn; i++)
+    {
+        printf("%s\t\t%s\t\t\tRM %s\n", listName[i], listPhone[i], listSalary[i]);
+    }
 }
