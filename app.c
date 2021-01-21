@@ -94,7 +94,6 @@ int main()
                     strcpy(listName[i], listName[i + 1]);
                     strcpy(listPhone[i], listPhone[i + 1]);
                     strcpy(listSalary[i], listSalary[i + 1]);
-
                 }
                 exportData();
 
@@ -196,12 +195,15 @@ void exportData()
     fp = fopen(filename, "w+");
     for (int j = 0; j < tail; j++)
     {
-        fprintf(fp, "\n");
-        fprintf(fp, listName[j]);
-        fprintf(fp, " ");
-        fprintf(fp, listPhone[j]);
-        fprintf(fp, " ");
-        fprintf(fp, listSalary[j]);
+        if (strcmp(listName[j], "") != 0)
+        {
+            fprintf(fp, "\n");
+            fprintf(fp, listName[j]);
+            fprintf(fp, " ");
+            fprintf(fp, listPhone[j]);
+            fprintf(fp, " ");
+            fprintf(fp, listSalary[j]);
+        }
     }
     fclose(fp);
 }
