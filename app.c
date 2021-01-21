@@ -69,7 +69,7 @@ int main()
         else if (strcmp(option, "2") == 0)
         {
             //Edit data
-            int dataID = 0;
+            int dataID;
             while (1)
             {
                 system("cls");
