@@ -3,13 +3,13 @@
 #include <windows.h>
 
 #define dataLength 30
-#define dataColumn 3
+#define dataColumn 4
 
 FILE *fp;
-char listName[dataLength][20], listSalary[dataLength][20], listPhone[dataLength][20], listData[dataLength][20];
-char setName[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
-char dataEmployee[dataLength], dataName[dataLength], dataPhone[dataLength], dataSalary[dataLength];
-int head = 0, tail = 1, k, cName = 0, cPhone = 1, cSalary = 2, a = 0, b = 0, c = 0;
+char listName[dataLength][20], listAge[dataLength][20], listSalary[dataLength][20], listPhone[dataLength][20], listData[dataLength][20];
+char setName[dataLength], setAge[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
+char dataEmployee[dataLength], dataName[dataLength], dataAge[dataLength], dataPhone[dataLength], dataSalary[dataLength];
+int head = 0, tail = 1, k, cName = 0, cAge = 1, cPhone = 2, cSalary = 3, a = 0, b = 0, c = 0, d=0;
 
 char filename[10] = "data.txt";
 
@@ -36,18 +36,21 @@ int main()
         if (strcmp(option, "1") == 0)
         {
             //Insert Data
-            system("cls");
             while (1)
             {
+                system("cls");
                 empDetail();
 
                 for (int i = head; i < tail; i++)
                 {
                     strcpy(listName[head], setName);
+                    strcpy(listAge[head], setAge);
                     strcpy(listPhone[head], setPhone);
                     strcpy(listSalary[head], setSalary);
                     exportData();
                     printf("Your data has been inserted\nEnter Y for insert another data: ");
+                    head++;
+                    tail++;
                     break;
                 }
                 scanf("%s", &back);
@@ -60,7 +63,7 @@ int main()
         else if (strcmp(option, "2") == 0)
         {
             //Edit data
-            int dataID;
+            int dataID, cType;
             while (1)
             {
                 system("cls");
@@ -71,10 +74,40 @@ int main()
                 {
                     break;
                 }
-                empDetail();
-                strcpy(listName[dataID - 1], setName);
-                strcpy(listPhone[dataID - 1], setPhone);
-                strcpy(listSalary[dataID - 1], setSalary);
+                printf("\nEnter 1-Name, 2-Age, 3-Phone number, 4-Salary : ");
+                scanf("%d", &cType);
+                //empDetail();
+                while (1)
+                {
+                    if (cType == 1)
+                    {
+                        printf("Enter new name: ");
+                        scanf("%s", setName);
+                        strcpy(listName[dataID - 1], setName);
+                        break;
+                    }
+                    if (cType == 2)
+                    {
+                        printf("Enter new age: ");
+                        scanf("%s", setAge);
+                        strcpy(listAge[dataID - 1], setAge);
+                        break;
+                    }
+                    if (cType == 3)
+                    {
+                        printf("Enter new phone number: ");
+                        scanf("%s", setPhone);
+                        strcpy(listPhone[dataID - 1], setPhone);
+                        break;
+                    }
+                    if (cType == 4)
+                    {
+                        printf("Enter new salary: ");
+                        scanf("%s", setSalary);
+                        strcpy(listSalary[dataID - 1], setSalary);
+                        break;
+                    }
+                }
                 exportData();
                 printf("\n\nData changed\nEnter Y for edit another data: ");
                 scanf("%s", back);
@@ -101,6 +134,7 @@ int main()
                 for (int i = dataID - 1; i < tail; i++)
                 {
                     strcpy(listName[i], listName[i + 1]);
+                    strcpy(listAge[i], listAge[i + 1]);
                     strcpy(listPhone[i], listPhone[i + 1]);
                     strcpy(listSalary[i], listSalary[i + 1]);
                 }
@@ -158,14 +192,19 @@ void dataEmp()
             strcpy(listName[a++], listData[cName]);
             cName = cName + dataColumn;
         }
+        else if (i == cAge)
+        {
+            strcpy(listAge[b++], listData[cAge]);
+            cAge = cAge + dataColumn;
+        }
         else if (i == cPhone)
         {
-            strcpy(listPhone[b++], listData[cPhone]);
+            strcpy(listPhone[c++], listData[cPhone]);
             cPhone = cPhone + dataColumn;
         }
         else if (i == cSalary)
         {
-            strcpy(listSalary[c++], listData[cSalary]);
+            strcpy(listSalary[d++], listData[cSalary]);
             cSalary = cSalary + dataColumn;
         }
     }
@@ -180,12 +219,12 @@ void dataEmp()
 
 void displayData()
 {
-    printf("ID\tName\t\tPhone \t\t\tSalary\n");
-    printf("======================================================\n");
+    printf("ID\tName\t\tAge\t\tPhone \t\t\tSalary\n");
+    printf("======================================================================\n");
 
     for (int i = 0; i < k / dataColumn; i++)
     {
-        printf("%d\t%s\t\t%s\t\t\tRM %s\n", i + 1, listName[i], listPhone[i], listSalary[i]);
+        printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, listName[i],listAge[i], listPhone[i], listSalary[i]);
     }
 }
 
@@ -193,6 +232,8 @@ void empDetail()
 {
     printf("Enter Name: ");
     scanf("%s", &setName);
+    printf("Enter Age: ");
+    scanf("%s", &setAge);
     printf("Enter Phone Number: ");
     scanf("%s", &setPhone);
     printf("Enter Salary(RM): ");
@@ -208,6 +249,8 @@ void exportData()
         {
             fprintf(fp, "\n");
             fprintf(fp, listName[j]);
+            fprintf(fp, " ");
+            fprintf(fp, listAge[j]);
             fprintf(fp, " ");
             fprintf(fp, listPhone[j]);
             fprintf(fp, " ");
