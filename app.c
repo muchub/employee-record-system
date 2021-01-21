@@ -80,10 +80,7 @@ int main()
                 scanf("%s", back);
                 if (strcmp(back, "Y") != 0)
                 {
-                    if (strcmp(back, "y") != 0)
-                    {
-                        break;
-                    }
+                    break;
                 }
             }
         }
