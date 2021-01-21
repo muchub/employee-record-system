@@ -16,6 +16,7 @@ char filename[10] = "data.txt";
 void dataEmp();
 void displayData();
 void empDetail();
+void exportData();
 
 int main()
 {
@@ -42,20 +43,10 @@ int main()
 
                 for (int i = head; i < tail; i++)
                 {
-                    fp = fopen(filename, "w+");
                     strcpy(listName[head], setName);
                     strcpy(listPhone[head], setPhone);
                     strcpy(listSalary[head], setSalary);
-                    for (int j = 0; j < tail; j++)
-                    {
-                        fprintf(fp, "\n");
-                        fprintf(fp, listName[j]);
-                        fprintf(fp, " ");
-                        fprintf(fp, listPhone[j]);
-                        fprintf(fp, " ");
-                        fprintf(fp, listSalary[j]);
-                    }
-                    fclose(fp);
+                    exportData();
                     printf("Your data has been inserted\nEnter Y for insert another data: ");
                     break;
                 }
@@ -80,9 +71,10 @@ int main()
                 strcpy(listName[dataID - 1], setName);
                 strcpy(listPhone[dataID - 1], setPhone);
                 strcpy(listSalary[dataID - 1], setSalary);
-                printf("\n\nPress any key to back: ");
+                exportData();
+                printf("\n\nData changed\nEnter Y for edit another data: ");
                 scanf("%s", back);
-                if (strcmp(back, "") == 0 || strcmp(back, "") != 0)
+                if (strcmp(back, "Y") != 0)
                 {
                     break;
                 }
@@ -185,7 +177,7 @@ void displayData()
 
     for (int i = 0; i < k / dataColumn; i++)
     {
-        printf("%d\t%s\t\t%s\t\t\tRM %s\n", i+1, listName[i], listPhone[i], listSalary[i]);
+        printf("%d\t%s\t\t%s\t\t\tRM %s\n", i + 1, listName[i], listPhone[i], listSalary[i]);
     }
 }
 
@@ -197,4 +189,19 @@ void empDetail()
     scanf("%s", &setPhone);
     printf("Enter Salary(RM): ");
     scanf("%s", &setSalary);
+}
+
+void exportData()
+{
+    fp = fopen(filename, "w+");
+    for (int j = 0; j < tail; j++)
+    {
+        fprintf(fp, "\n");
+        fprintf(fp, listName[j]);
+        fprintf(fp, " ");
+        fprintf(fp, listPhone[j]);
+        fprintf(fp, " ");
+        fprintf(fp, listSalary[j]);
+    }
+    fclose(fp);
 }
