@@ -65,8 +65,12 @@ int main()
             {
                 system("cls");
                 displayData();
-                printf("Enter data ID: ");
+                printf("\nEnter data ID 0 for cancel: ");
                 scanf("%d", &dataID);
+                if (dataID == 0)
+                {
+                    break;
+                }
                 empDetail();
                 strcpy(listName[dataID - 1], setName);
                 strcpy(listPhone[dataID - 1], setPhone);
@@ -76,20 +80,28 @@ int main()
                 scanf("%s", back);
                 if (strcmp(back, "Y") != 0)
                 {
-                    break;
+                    if (strcmp(back, "y") != 0)
+                    {
+                        break;
+                    }
                 }
             }
         }
         else if (strcmp(option, "3") == 0)
         {
             //Delete data
-            int dataDel;
+            int dataID;
             while (1)
             {
                 system("cls");
-                printf("Enter data to delete: ");
-                scanf("%d", &dataDel);
-                for (int i = dataDel - 1; i < tail; i++)
+                displayData();
+                printf("\nEnter ID to delete 0 for cancel: ");
+                scanf("%d", &dataID);
+                if (dataID == 0)
+                {
+                    break;
+                }
+                for (int i = dataID - 1; i < tail; i++)
                 {
                     strcpy(listName[i], listName[i + 1]);
                     strcpy(listPhone[i], listPhone[i + 1]);
@@ -172,7 +184,7 @@ void dataEmp()
 void displayData()
 {
     printf("ID\tName\t\tPhone \t\t\tSalary\n");
-    printf("==============================================\n");
+    printf("======================================================\n");
 
     for (int i = 0; i < k / dataColumn; i++)
     {
