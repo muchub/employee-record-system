@@ -87,20 +87,20 @@ int main()
             while (1)
             {
                 system("cls");
-                //printf("Under const");
-                while (1)
+                printf("Enter data to delete: ");
+                scanf("%d", &dataDel);
+                for (int i = dataDel - 1; i < tail; i++)
                 {
-                    printf("Enter data to delete: ");
-                    scanf("%d", &dataDel);
-                    if (dataDel == 1)
-                    {
-                        printf("Data %d has been deleted", dataDel);
-                        break;
-                    }
+                    strcpy(listName[i], listName[i + 1]);
+                    strcpy(listPhone[i], listPhone[i + 1]);
+                    strcpy(listSalary[i], listSalary[i + 1]);
+
                 }
-                printf("\n\nPress any key to back: ");
+                exportData();
+
+                printf("\nData deleted\nEnter Y to delete another data: ");
                 scanf("%s", back);
-                if (strcmp(back, "") == 0 || strcmp(back, "") != 0)
+                if (strcmp(back, "Y") != 0)
                 {
                     break;
                 }
