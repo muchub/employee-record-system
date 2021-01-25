@@ -6,12 +6,19 @@
 #define dataColumn 4
 
 FILE *fp;
-char listName[dataLength][20], listAge[dataLength][20], listSalary[dataLength][20], listPhone[dataLength][20], listData[dataLength][20];
+char Name[dataLength], Age[dataLength], Phone[dataLength], Salary[dataLength];
 char setName[dataLength], setAge[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
-char dataEmployee[dataLength], dataName[dataLength], dataAge[dataLength], dataPhone[dataLength], dataSalary[dataLength];
-int head = 0, tail = 1, k, cName = 0, cAge = 1, cPhone = 2, cSalary = 3, a = 0, b = 0, c = 0, d=0;
+int head = 0, tail = 1, k;
 
 char filename[10] = "data.txt";
+
+struct EMP
+{
+    char Name[dataLength][20];
+    char Age[dataLength][3];
+    char Salary[dataLength][20];
+    char Phone[dataLength][11];
+} emp;
 
 void dataEmp();
 void displayData();
@@ -43,10 +50,10 @@ int main()
 
                 for (int i = head; i < tail; i++)
                 {
-                    strcpy(listName[head], setName);
-                    strcpy(listAge[head], setAge);
-                    strcpy(listPhone[head], setPhone);
-                    strcpy(listSalary[head], setSalary);
+                    strcpy(emp.Name[head], setName);
+                    strcpy(emp.Age[head], setAge);
+                    strcpy(emp.Phone[head], setPhone);
+                    strcpy(emp.Salary[head], setSalary);
                     exportData();
                     printf("Your data has been inserted\nEnter Y for insert another data: ");
                     head++;
@@ -83,28 +90,28 @@ int main()
                     {
                         printf("Enter new name: ");
                         scanf("%s", setName);
-                        strcpy(listName[dataID - 1], setName);
+                        strcpy(emp.Name[dataID - 1], setName);
                         break;
                     }
                     if (cType == 2)
                     {
                         printf("Enter new age: ");
                         scanf("%s", setAge);
-                        strcpy(listAge[dataID - 1], setAge);
+                        strcpy(emp.Age[dataID - 1], setAge);
                         break;
                     }
                     if (cType == 3)
                     {
                         printf("Enter new phone number: ");
                         scanf("%s", setPhone);
-                        strcpy(listPhone[dataID - 1], setPhone);
+                        strcpy(emp.Phone[dataID - 1], setPhone);
                         break;
                     }
                     if (cType == 4)
                     {
                         printf("Enter new salary: ");
                         scanf("%s", setSalary);
-                        strcpy(listSalary[dataID - 1], setSalary);
+                        strcpy(emp.Salary[dataID - 1], setSalary);
                         break;
                     }
                 }
@@ -133,10 +140,10 @@ int main()
                 }
                 for (int i = dataID - 1; i < tail; i++)
                 {
-                    strcpy(listName[i], listName[i + 1]);
-                    strcpy(listAge[i], listAge[i + 1]);
-                    strcpy(listPhone[i], listPhone[i + 1]);
-                    strcpy(listSalary[i], listSalary[i + 1]);
+                    strcpy(emp.Name[i], emp.Name[i + 1]);
+                    strcpy(emp.Age[i], emp.Age[i + 1]);
+                    strcpy(emp.Phone[i], emp.Phone[i + 1]);
+                    strcpy(emp.Salary[i], emp.Salary[i + 1]);
                 }
                 exportData();
 
@@ -178,39 +185,20 @@ void dataEmp()
     fp = fopen(filename, "r+");
     while (!feof(fp))
     {
-        fscanf(fp, "%s", dataEmployee);
-        strcpy(listData[k], dataEmployee);
+        
+        fscanf(fp, "%s %s %s %s", Name, Age, Phone, Salary);
+        strcpy(emp.Name[k], Name);
+        strcpy(emp.Age[k], Age);
+        strcpy(emp.Phone[k], Phone);
+        strcpy(emp.Salary[k], Salary);
         k++;
     }
     fclose(fp);
-
+    printf("k is %d", k);
     //sort data by category/column
-    for (int i = 0; i < k; i++)
-    {
-        if (i == cName)
-        {
-            strcpy(listName[a++], listData[cName]);
-            cName = cName + dataColumn;
-        }
-        else if (i == cAge)
-        {
-            strcpy(listAge[b++], listData[cAge]);
-            cAge = cAge + dataColumn;
-        }
-        else if (i == cPhone)
-        {
-            strcpy(listPhone[c++], listData[cPhone]);
-            cPhone = cPhone + dataColumn;
-        }
-        else if (i == cSalary)
-        {
-            strcpy(listSalary[d++], listData[cSalary]);
-            cSalary = cSalary + dataColumn;
-        }
-    }
 
     //Check last record
-    for (int i = 0; i < k / dataColumn; i++)
+    for (int i = 0; i < k; i++)
     {
         head++;
         tail++;
@@ -222,9 +210,12 @@ void displayData()
     printf("ID\tName\t\tAge\t\tPhone \t\t\tSalary\n");
     printf("======================================================================\n");
 
-    for (int i = 0; i < k / dataColumn; i++)
+    for (int i = 0; i < k; i++)
     {
-        printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, listName[i],listAge[i], listPhone[i], listSalary[i]);
+        if (strcmp(emp.Name[i], "") != 0)
+        {
+            printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], emp.Age[i], emp.Phone[i], emp.Salary[i]);
+        }
     }
 }
 
@@ -245,16 +236,16 @@ void exportData()
     fp = fopen(filename, "w+");
     for (int j = 0; j < tail; j++)
     {
-        if (strcmp(listName[j], "") != 0)
+        if (strcmp(emp.Name[j], "") != 0)
         {
             fprintf(fp, "\n");
-            fprintf(fp, listName[j]);
+            fprintf(fp, emp.Name[j]);
             fprintf(fp, " ");
-            fprintf(fp, listAge[j]);
+            fprintf(fp, emp.Age[j]);
             fprintf(fp, " ");
-            fprintf(fp, listPhone[j]);
+            fprintf(fp, emp.Phone[j]);
             fprintf(fp, " ");
-            fprintf(fp, listSalary[j]);
+            fprintf(fp, emp.Salary[j]);
         }
     }
     fclose(fp);
