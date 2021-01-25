@@ -195,7 +195,6 @@ void dataEmp()
     }
     fclose(fp);
     printf("k is %d", k);
-    //sort data by category/column
 
     //Check last record
     for (int i = 0; i < k; i++)
