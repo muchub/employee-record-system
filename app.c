@@ -9,6 +9,7 @@ FILE *fp;
 char Name[dataLength], Age[dataLength], Phone[dataLength], Salary[dataLength];
 char setName[dataLength], setAge[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
 int head = 0, tail = 1, k;
+char password[10];
 
 char filename[10] = "data.txt";
 
@@ -185,7 +186,7 @@ void dataEmp()
     fp = fopen(filename, "r+");
     while (!feof(fp))
     {
-        
+
         fscanf(fp, "%s %s %s %s", Name, Age, Phone, Salary);
         strcpy(emp.Name[k], Name);
         strcpy(emp.Age[k], Age);
@@ -194,7 +195,6 @@ void dataEmp()
         k++;
     }
     fclose(fp);
-    printf("k is %d", k);
 
     //Check last record
     for (int i = 0; i < k; i++)
