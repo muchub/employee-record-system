@@ -20,10 +20,10 @@ struct EMP
     char Phone[dataLength][11];
 } emp;
 
-void dataEmp();
+void exportData();
 void displayData();
 void empDetail();
-void exportData();
+void importData();
 
 int main()
 {
@@ -31,7 +31,7 @@ int main()
     {
         system("cls");
 
-        dataEmp();
+        exportData();
 
         printf("[+]========================[+]\n");
         printf(" |  Employee record system  |\n");
@@ -54,7 +54,7 @@ int main()
                     strcpy(emp.Age[head], setAge);
                     strcpy(emp.Phone[head], setPhone);
                     strcpy(emp.Salary[head], setSalary);
-                    exportData();
+                    importData();
                     printf("Your data has been inserted\nEnter Y for insert another data: ");
                     head++;
                     tail++;
@@ -115,7 +115,7 @@ int main()
                         break;
                     }
                 }
-                exportData();
+                importData();
                 printf("\n\nData changed\nEnter Y for edit another data: ");
                 scanf("%s", back);
                 if (strcmp(back, "Y") != 0)
@@ -145,7 +145,7 @@ int main()
                     strcpy(emp.Phone[i], emp.Phone[i + 1]);
                     strcpy(emp.Salary[i], emp.Salary[i + 1]);
                 }
-                exportData();
+                importData();
 
                 printf("\nData deleted\nEnter Y to delete another data: ");
                 scanf("%s", back);
@@ -172,7 +172,7 @@ int main()
     } while (strcmp(option, "E") != 0);
 }
 
-void dataEmp()
+void exportData()
 {
     //check if file not exist create file
     if (!fopen(filename, "r+"))
@@ -229,7 +229,7 @@ void empDetail()
     scanf("%s", &setSalary);
 }
 
-void exportData()
+void importData()
 {
     fp = fopen(filename, "w+");
     for (int j = 0; j < tail; j++)
