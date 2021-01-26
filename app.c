@@ -10,8 +10,6 @@ char Name[dataLength], Age[dataLength], Phone[dataLength], Salary[dataLength];
 char setName[dataLength], setAge[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
 int head = 0, tail = 1, k;
 
-char filename[10] = "data.txt";
-
 struct EMP
 {
     char Name[dataLength][20];
@@ -19,6 +17,8 @@ struct EMP
     char Salary[dataLength][20];
     char Phone[dataLength][11];
 } emp;
+
+char filename[10] = "data.txt";
 
 void exportData();
 void displayData();
@@ -30,7 +30,6 @@ int main()
     do
     {
         system("cls");
-
         exportData();
 
         printf("[+]========================[+]\n");
@@ -91,6 +90,7 @@ int main()
                         printf("Enter new name: ");
                         scanf("%s", setName);
                         strcpy(emp.Name[dataID - 1], setName);
+                        importData();
                         break;
                     }
                     if (cType == 2)
@@ -98,6 +98,7 @@ int main()
                         printf("Enter new age: ");
                         scanf("%s", setAge);
                         strcpy(emp.Age[dataID - 1], setAge);
+                        importData();
                         break;
                     }
                     if (cType == 3)
@@ -105,6 +106,7 @@ int main()
                         printf("Enter new phone number: ");
                         scanf("%s", setPhone);
                         strcpy(emp.Phone[dataID - 1], setPhone);
+                        importData();
                         break;
                     }
                     if (cType == 4)
@@ -112,10 +114,10 @@ int main()
                         printf("Enter new salary: ");
                         scanf("%s", setSalary);
                         strcpy(emp.Salary[dataID - 1], setSalary);
+                        importData();
                         break;
                     }
                 }
-                importData();
                 printf("\n\nData changed\nEnter Y for edit another data: ");
                 scanf("%s", back);
                 if (strcmp(back, "Y") != 0)
@@ -131,21 +133,25 @@ int main()
             while (1)
             {
                 system("cls");
+                //importData();
                 displayData();
                 printf("\nEnter ID to delete 0 for cancel: ");
                 scanf("%d", &dataID);
-                if (dataID == 0)
+                if (dataID <= 0)
                 {
                     break;
                 }
-                for (int i = dataID - 1; i < tail; i++)
+                else
                 {
-                    strcpy(emp.Name[i], emp.Name[i + 1]);
-                    strcpy(emp.Age[i], emp.Age[i + 1]);
-                    strcpy(emp.Phone[i], emp.Phone[i + 1]);
-                    strcpy(emp.Salary[i], emp.Salary[i + 1]);
+                    for (int i = dataID - 1; i < tail; i++)
+                    {
+                        strcpy(emp.Name[i], emp.Name[i + 1]);
+                        strcpy(emp.Age[i], emp.Age[i + 1]);
+                        strcpy(emp.Phone[i], emp.Phone[i + 1]);
+                        strcpy(emp.Salary[i], emp.Salary[i + 1]);
+                    }
+                    importData();
                 }
-                importData();
 
                 printf("\nData deleted\nEnter Y to delete another data: ");
                 scanf("%s", back);
@@ -174,18 +180,17 @@ int main()
 
 void exportData()
 {
+    k = 0;
     //check if file not exist create file
     if (!fopen(filename, "r+"))
     {
         fopen(filename, "w+");
     }
 
-    k = 0;
     //Read all data from file
     fp = fopen(filename, "r+");
     while (!feof(fp))
     {
-
         fscanf(fp, "%s %s %s %s", Name, Age, Phone, Salary);
         strcpy(emp.Name[k], Name);
         strcpy(emp.Age[k], Age);
