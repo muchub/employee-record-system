@@ -6,19 +6,20 @@
 #define dataColumn 4
 
 FILE *fp;
-char Name[dataLength], Age[dataLength], Phone[dataLength], Salary[dataLength];
 char setName[dataLength], setAge[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
-int head = 0, tail = 1, k;
-
-char filename[10] = "data.txt";
+char exportDataEmployee[dataLength];
+int head = 0, tail = 1, k, cName = 0, cAge = 1, cPhone = 2, cSalary = 3, a = 0, b = 0, c = 0, d = 0;
 
 struct EMP
 {
     char Name[dataLength][20];
-    char Age[dataLength][3];
+    char Age[dataLength][20];
     char Salary[dataLength][20];
-    char Phone[dataLength][11];
+    char Phone[dataLength][20];
+    char Data[dataLength][20];
 } emp;
+
+char filename[10] = "data.txt";
 
 void exportData();
 void displayData();
@@ -185,18 +186,39 @@ void exportData()
     fp = fopen(filename, "r+");
     while (!feof(fp))
     {
-
-        fscanf(fp, "%s %s %s %s", Name, Age, Phone, Salary);
-        strcpy(emp.Name[k], Name);
-        strcpy(emp.Age[k], Age);
-        strcpy(emp.Phone[k], Phone);
-        strcpy(emp.Salary[k], Salary);
+        fscanf(fp, "%s", exportDataEmployee);
+        strcpy(emp.Data[k], exportDataEmployee);
         k++;
     }
     fclose(fp);
 
-    //Check last record
+    //sort data by category/column
     for (int i = 0; i < k; i++)
+    {
+        if (i == cName)
+        {
+            strcpy(emp.Name[a++], emp.Data[cName]);
+            cName = cName + dataColumn;
+        }
+        else if (i == cAge)
+        {
+            strcpy(emp.Age[b++], emp.Data[cAge]);
+            cAge = cAge + dataColumn;
+        }
+        else if (i == cPhone)
+        {
+            strcpy(emp.Phone[c++], emp.Data[cPhone]);
+            cPhone = cPhone + dataColumn;
+        }
+        else if (i == cSalary)
+        {
+            strcpy(emp.Salary[d++], emp.Data[cSalary]);
+            cSalary = cSalary + dataColumn;
+        }
+    }
+
+    //Check last record
+    for (int i = 0; i < k / dataColumn; i++)
     {
         head++;
         tail++;
