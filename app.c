@@ -24,7 +24,6 @@ char filename[10] = "data.txt";
 
 void exportData();
 void displayData();
-void empDetail();
 void importData();
 void Clear();
 
@@ -167,18 +166,12 @@ int main()
                     strcpy(emp.Age[i], emp.Age[i + 1]);
                     strcpy(emp.Phone[i], emp.Phone[i + 1]);
                     strcpy(emp.Salary[i], emp.Salary[i + 1]);
-
-                    strcpy(emp.Name[tail], "");
-                    strcpy(emp.Age[tail], "");
-                    strcpy(emp.Phone[tail], "");
-                    strcpy(emp.Salary[tail], "");
-
-                    if (head > 0 && tail > 1)
-                    {
-                        k = k - 3;
-                        head--;
-                        tail--;
-                    }
+                }
+                if (head > 0 && tail > 1)
+                {
+                    k = k - 3;
+                    head--;
+                    tail--;
                 }
                 importData();
 
@@ -265,6 +258,11 @@ void exportData()
 
 void displayData()
 {
+    strcpy(emp.Name[head], "");
+    strcpy(emp.Age[head], "");
+    strcpy(emp.Phone[head], "");
+    strcpy(emp.Salary[head], "");
+
     //printf("k is %d nub is = %d Head is %d Tail is %d\n", k, nub, head, tail);
     printf("ID\tName\t\tAge\t\tPhone \t\t\tSalary\n");
     printf("======================================================================\n");
@@ -276,18 +274,6 @@ void displayData()
             printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], emp.Age[i], emp.Phone[i], emp.Salary[i]);
         }
     }
-}
-
-void empDetail()
-{
-    printf("Enter Name: ");
-    scanf("%s", &setName);
-    printf("Enter Age: ");
-    scanf("%s", &setAge);
-    printf("Enter Phone Number: ");
-    scanf("%s", &setPhone);
-    printf("Enter Salary(RM): ");
-    scanf("%s", &setSalary);
 }
 
 void importData()
