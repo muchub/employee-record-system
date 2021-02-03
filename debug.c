@@ -265,7 +265,7 @@ void exportData()
 
 void displayData()
 {
-    //printf("k is %d nub is = %d Head is %d Tail is %d\n", k, nub, head, tail);
+    printf("k is %d nub is = %d Head is %d Tail is %d\n", k, nub, head, tail);
     printf("ID\tName\t\tAge\t\tPhone \t\t\tSalary\n");
     printf("======================================================================\n");
 
@@ -273,7 +273,7 @@ void displayData()
     {
         if (strcmp(emp.Name[i], "") != 0)
         {
-            printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], i, emp.Age[i], emp.Phone[i], emp.Salary[i]);
+            printf("%d\t%s[%d]\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], i, emp.Age[i], emp.Phone[i], emp.Salary[i]);
         }
     }
 }

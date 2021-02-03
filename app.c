@@ -273,7 +273,7 @@ void displayData()
     {
         if (strcmp(emp.Name[i], "") != 0)
         {
-            printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], i, emp.Age[i], emp.Phone[i], emp.Salary[i]);
+            printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], emp.Age[i], emp.Phone[i], emp.Salary[i]);
         }
     }
 }
