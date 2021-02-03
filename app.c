@@ -2,7 +2,7 @@
 #include <string.h>
 #include <windows.h>
 
-#define dataLength 30
+#define dataLength 1000
 #define dataColumn 4
 
 FILE *fp;
@@ -31,7 +31,8 @@ int main()
     {
         system("cls");
         exportData();
-
+        
+        printf("\nName[0] is %s: \n", emp.Name[0]);
         printf("[+]========================[+]\n");
         printf(" |  Employee record system  |\n");
         printf("[+]========================[+]\n\n");
@@ -82,7 +83,6 @@ int main()
                 }
                 printf("\nEnter 1-Name, 2-Age, 3-Phone number, 4-Salary : ");
                 scanf("%d", &cType);
-                //empDetail();
                 while (1)
                 {
                     if (cType == 1)
@@ -133,7 +133,6 @@ int main()
             while (1)
             {
                 system("cls");
-                //importData();
                 displayData();
                 printf("\nEnter ID to delete 0 for cancel: ");
                 scanf("%d", &dataID);
@@ -215,6 +214,8 @@ void displayData()
 
     for (int i = 0; i < k; i++)
     {
+        //Clear();
+        //exportData();
         if (strcmp(emp.Name[i], "") != 0)
         {
             printf("%d\t%s\t\t%s\t\t%s\t\t\tRM %s\n", i + 1, emp.Name[i], emp.Age[i], emp.Phone[i], emp.Salary[i]);
