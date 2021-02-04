@@ -7,8 +7,8 @@
 
 FILE *fp;
 char setName[dataLength], setAge[dataLength], setPhone[dataLength], setSalary[dataLength], option[10], back[1] = {""};
-char exportDataEmployee[dataLength];
-int head = 0, tail = 1, k, cName = 0, cAge = 1, cPhone = 2, cSalary = 3, a = 0, b = 0, c = 0, d = 0;
+char Name[dataLength], Age[dataLength], Phone[dataLength], Salary[dataLength];
+int head = 0, tail = 1, k;
 int nub;
 
 struct EMP
@@ -25,7 +25,6 @@ char filename[10] = "data.txt";
 void exportData();
 void displayData();
 void importData();
-void Clear();
 
 int main()
 {
@@ -167,12 +166,14 @@ int main()
                     strcpy(emp.Phone[i], emp.Phone[i + 1]);
                     strcpy(emp.Salary[i], emp.Salary[i + 1]);
                 }
+                /*
                 if (head > 0 && tail > 1)
                 {
                     k = k - 3;
                     head--;
                     tail--;
                 }
+                */
                 importData();
 
                 printf("\nData deleted\nEnter Y to delete another data: ");
@@ -213,13 +214,18 @@ void exportData()
     fp = fopen(filename, "r+");
     while (!feof(fp))
     {
-        fscanf(fp, "%s", exportDataEmployee);
-        strcpy(emp.Data[k], exportDataEmployee);
+        fscanf(fp, "%s %s %s %s", Name, Age, Phone, Salary);
+        //strcpy(emp.Data[k], exportDataEmployee);
+        strcpy(emp.Name[k], Name);
+        strcpy(emp.Age[k], Age);
+        strcpy(emp.Phone[k], Phone);
+        strcpy(emp.Salary[k], Salary);
         k++;
     }
     fclose(fp);
 
     //sort data by category/column
+    /*
     for (int i = 0; i < k; i++)
     {
         if (i == cName)
@@ -243,9 +249,10 @@ void exportData()
             cSalary = cSalary + dataColumn;
         }
     }
+    */
 
     //Check last record
-    for (int i = 0; i < k / dataColumn; i++)
+    for (int i = 0; i < k ; i++)
     {
         if (strcmp(emp.Name[i], "") != 0)
         {
@@ -258,10 +265,6 @@ void exportData()
 
 void displayData()
 {
-    strcpy(emp.Name[head], "");
-    strcpy(emp.Age[head], "");
-    strcpy(emp.Phone[head], "");
-    strcpy(emp.Salary[head], "");
 
     printf("k is %d nub is = %d Head is %d Tail is %d\n", k, nub, head, tail);
     printf("ID\tName\t\tAge\t\tPhone \t\t\tSalary\n");
@@ -294,15 +297,4 @@ void importData()
         }
     }
     fclose(fp);
-}
-
-void Clear()
-{
-    for (int i = 0; i < dataLength; i++)
-    {
-        strcpy(emp.Name[i], "");
-        strcpy(emp.Age[i], "");
-        strcpy(emp.Phone[i], "");
-        strcpy(emp.Salary[i], "");
-    }
 }
