@@ -25,7 +25,7 @@ A simple Employee Record System implemented in C. This program allows users to i
 
 ## Notes
 
-- Use responsibly and only for legal purposes.
+- Free to use
 - This program uses the "data.txt" file to store employee records. Ensure that the file is present in the same directory as the executable.
 - The program clears the console screen after each operation for better user experience.
 
